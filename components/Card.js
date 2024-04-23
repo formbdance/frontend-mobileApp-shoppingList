@@ -26,7 +26,7 @@ export default function Card(props) {
 
     return(
         <Pressable 
-        onPress={() => setIsSelected(!isSelected)}  
+        onPress={() => {longPressed ? null : setIsSelected(!isSelected)}}  
         onLongPress={() => setLongPressed(!longPressed)}
         style={({pressed}) => [
             styles.card,
@@ -43,11 +43,11 @@ export default function Card(props) {
                 </Text>
             </View>
             <View style={styles.cardWrapper}>
-                {data.leading}
-                <Text style={!isSelected ? styles.cardText : {
-                    textDecorationLine: 'line-through'
-                } } 
-                 >{data.title} </Text>
+                <View style={styles.cardTitle}>
+                    {data.leading}
+                    <Text style={!isSelected ? styles.cardText : styles.cardTextDisabled } 
+                    >{data.title} </Text>
+                </View>
             </View>
         </Pressable>
     )
@@ -78,22 +78,33 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     choseCard: {
-        backgroundColor: '#ff6666' ,
+        backgroundColor: '#3eb489' ,
     },
     cardWrapper: {
-        
+        display: 'flex',
+        flexDirection:'row',
+        padding: 12,
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: .5, // Толщина нижнего подчеркивания
+        borderBottomColor: '#e6e6e6', // Цвет нижнего подчеркивания (можете изменить на свой)
+    },
+
+    cardTitle: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       gap: 12,
-      padding: 12,
     },
     cardText: {
       fontSize: 16,
-      borderBottomWidth: .5, // Толщина нижнего подчеркивания
-      borderBottomColor: '#e6e6e6', // Цвет нижнего подчеркивания (можете изменить на свой)
-      width: '100%',
       marginLeft: 6,
       paddingBottom: 6,
-    }
+    },
+    cardTextDisabled: {
+        fontSize: 16,
+        marginLeft: 6,
+        paddingBottom: 6,
+      }
   });

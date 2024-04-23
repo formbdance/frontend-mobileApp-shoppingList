@@ -7,24 +7,15 @@ import { useState } from "react";
 import ModalView from "./widgets/ModalView";
 import HeadBar from "./widgets/HeadBar";
 import FooterBar from "./widgets/FooterBar";
+import StatusCustom from "./components/StatusCustom";
 
-const STYLES = ['default', 'dark-content', 'light-content'];
-const TRANSITIONS = ['fade', 'slide', 'none'];
+
 
 export default function App() {
-  const [statusBarStyle, setStatusBarStyle] = useState(STYLES[0]);
-  const [statusBarTransition, setStatusBarTransition] = useState(
-    TRANSITIONS[0],
-  );
 
   return (
     <Provider store={store}>
-      <StatusBar
-        animated={true}
-        backgroundColor="#5626C4"
-        barStyle={statusBarStyle}
-        showHideTransition={statusBarTransition}
-      />
+      <StatusCustom />
       
       <ModalView  />
       <SafeAreaView style={{height: '100%'}}>

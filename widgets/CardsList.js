@@ -16,7 +16,7 @@ export default function CardsList() {
 
 
     return (
-        <Stack m={20} spacing={4} style={{display: 'flex', gap: 26}} >
+        <Stack m={20} spacing={4} style={{display: 'flex', gap: 12}} >
 
 
 
@@ -33,7 +33,7 @@ export default function CardsList() {
                 cards.cards.map((item, index) => {
                   return(
                     <Card
-                    key={index}
+                      key={index}
                       title={item.title}
                       leading={<Icon name="food" size={24} />}
                       id={item._id.$oid}

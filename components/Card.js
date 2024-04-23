@@ -18,6 +18,7 @@ export default function Card(props) {
     const [longPressed, setLongPressed] = useState(false);
 
     const handleDelete = () => {
+        if(!longPressed) return;
         dispatch(deleteCard({data: {_id: data._id}}))
         setLongPressed(false)
 
@@ -25,25 +26,29 @@ export default function Card(props) {
 
     return(
         <Pressable 
-        onPressIn={() => setIsSelected(!isSelected)}  
+        onPress={() => setIsSelected(!isSelected)}  
         onLongPress={() => setLongPressed(!longPressed)}
         style={({pressed}) => [
+            styles.card,
             {
               backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-              textDecorationLine: isSelected ? 'line-through' : 'none',
-              backgroundColor: isSelected ? '#ff6666' : 'none',
             },
-            styles.card,
+            !isSelected ? null : styles.choseCard,
           ]}
         >
+            
             <View style={longPressed ? styles.optionsModal : styles.optionsModalDisabled}>
                 <Text style={longPressed ? null : styles.optionsModalDisabled}>
                     <IconButton onPress={() => handleDelete()} icon={props => <Icon style={{backgroundColor: '#fc6156', borderRadius: 100, padding: 3 }} name="trash-can-outline" {...props} />} />
                 </Text>
             </View>
-
-            {data.leading}
-            <Text style={styles.cardText}>{data.title}</Text>
+            <View style={styles.cardWrapper}>
+                {data.leading}
+                <Text style={!isSelected ? styles.cardText : {
+                    textDecorationLine: 'line-through'
+                } } 
+                 >{data.title} </Text>
+            </View>
         </Pressable>
     )
 }
@@ -52,34 +57,43 @@ const styles = StyleSheet.create({
     optionsModal: {
         position: 'absolute',
         backgroundColor: '#f5f5f5',
-        top: 0,
-        left: 0,
         zIndex: 10,
-        width: '100%',
         height: '100%',
+        width: '100%',
         borderRadius: 5,
         display: 'flex',
     },
     optionsModalDisabled: {
         display: 'none',
+        opacity: 0,
     },
     card: {
         display:'flex', 
         alignItems: 'center',
         flexDirection:'row', 
         gap: 12,
-        padding: 6,
+        height: 52,
         borderRadius: 5,
         position: 'relative',
+        overflow: 'hidden',
     },
-    cardText: {
-      width: '100%',
+    choseCard: {
+        backgroundColor: '#ff6666' ,
+    },
+    cardWrapper: {
+        
       display: 'flex',
       flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      padding: 12,
+    },
+    cardText: {
+      fontSize: 16,
       borderBottomWidth: .5, // Толщина нижнего подчеркивания
       borderBottomColor: '#e6e6e6', // Цвет нижнего подчеркивания (можете изменить на свой)
-      paddingBottom: 12,
-      fontSize: 16,
-      
-    },
+      width: '100%',
+      marginLeft: 6,
+      paddingBottom: 6,
+    }
   });

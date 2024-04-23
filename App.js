@@ -1,4 +1,4 @@
-import {StyleSheet, View, SafeAreaProvider, Pressable, StatusBar} from "react-native";
+import {StyleSheet, View, SafeAreaProvider, Pressable, StatusBar, SafeAreaView} from "react-native";
 import { AppBar, HStack, IconButton, ListItem, Text, Stack, TextInput, Button, FAB } from "@react-native-material/core";
 import { store } from './features/store'
 import { Provider, useDispatch } from 'react-redux'
@@ -25,27 +25,31 @@ export default function App() {
         barStyle={statusBarStyle}
         showHideTransition={statusBarTransition}
       />
-      <ModalView />
-      <View style={styles.container}>
+      
+      <ModalView  />
+      <SafeAreaView style={{height: '100%'}}>
         <HeadBar />
-        <View
-        style={{marginTop: '24px'}}>
-        
-        <Stack m={4} spacing={4} style={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
-          <Text variant="h4" style={{fontWeight:600}}>Список покупок</Text>
-            <Text variant="subtitle1" style={{textAlign:'center'}}>
-              Создавай список и покупай в магазине с умом!
-          </Text>
-        </Stack>
+        <View style={styles.container}>
+          
+          <View
+          style={{marginTop: '24px'}}>
+          
+          <Stack m={4} spacing={4} style={{display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
+            <Text variant="h4" style={{fontWeight:600}}>Список покупок</Text>
+              <Text variant="subtitle1" style={{textAlign:'center'}}>
+                Создавай список и покупай в магазине с умом!
+            </Text>
+          </Stack>
 
-        <CardsList />
+          <CardsList />
 
+          </View>
+
+          
         </View>
 
-        
-      </View>
-
-      <FooterBar />
+        <FooterBar />
+      </SafeAreaView>
 
     </Provider>
   );
